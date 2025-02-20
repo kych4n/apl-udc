@@ -1,4 +1,4 @@
-package apl.udc.api.controller;
+package apl.udc.api.facade;
 
 import apl.udc.auth.AuthProperties;
 import apl.udc.auth.OtpHandler;
