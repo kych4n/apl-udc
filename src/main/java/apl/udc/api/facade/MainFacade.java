@@ -12,6 +12,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
@@ -87,6 +89,23 @@ public class MainFacade {
     public void decrypt() throws Exception {
         SecretKey secretKey = decryptor.generateKey(authProperties.seed());
         decryptor.decrypt(secretKey);
+    }
+
+    public void done(String authorization) throws IOException {
+        Files.deleteIfExists(Path.of(SavePath.ENCRYPTED.getPath()));
+        Files.deleteIfExists(Path.of(SavePath.DECRYPTED.getPath()));
+
+        Request request = new Request.Builder()
+                .header("Authorization", authorization)
+                .url(odcProperties.address() + "/api/v1")
+                .delete()
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                log.info("Request Failed.");
+            }
+        }
     }
 
     private OkHttpClient OkHttpClient() {

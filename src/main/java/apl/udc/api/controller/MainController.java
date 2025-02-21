@@ -41,6 +41,8 @@ public class MainController {
         String encryptedDataUrl = mainFacade.getEncryptedDataUrl(authorization, infoForFilteringRequest);
         mainFacade.download(encryptedDataUrl);
         mainFacade.decrypt();
+        mainFacade.done(authorization);
         return ApiResponseUtil.success(SuccessMessage.SUCCESS);
     }
+
 }
