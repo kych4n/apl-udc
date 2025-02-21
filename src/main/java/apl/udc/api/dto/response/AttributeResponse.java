@@ -1,4 +1,4 @@
-package apl.udc.api.dto;
+package apl.udc.api.dto.response;
 
 import java.util.List;
 import lombok.Builder;
