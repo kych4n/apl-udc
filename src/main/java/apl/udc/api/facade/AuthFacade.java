@@ -4,6 +4,7 @@ import apl.udc.auth.AuthProperties;
 import apl.udc.auth.OtpHandler;
 import apl.udc.dto.request.SignInRequest;
 import apl.udc.dto.response.SignInResponse;
+import apl.udc.global.common.OdcProperties;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,9 +27,10 @@ public class AuthFacade {
     private final OtpHandler otpHandler;
     private final Gson gson = new Gson();
     private final OkHttpClient client = new OkHttpClient();
+    private final OdcProperties odcProperties;
 
     public SignInResponse signIn() throws IOException {
-        int totp = otpHandler.getTotp(authProperties.secretKey());
+        int totp = otpHandler.getTotp(authProperties.seed());
         SignInRequest signInRequest = SignInRequest.builder()
                 .username(authProperties.username()).password(authProperties.password()).totp(totp)
                 .build();
@@ -37,7 +39,7 @@ public class AuthFacade {
                 MediaType.get("application/json; charset=utf-8"));
 
         Request request = new Request.Builder()
-                .url("http://localhost:8080/api/v1/auth/signin")
+                .url(odcProperties.address() + "/api/v1/auth/signin")
                 .post(requestBody)
                 .build();
 
