@@ -6,6 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record AuthProperties(
         String username,
         String password,
-        String secretKey
+        String seed
 ) {
 }
