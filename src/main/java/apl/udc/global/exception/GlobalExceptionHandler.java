@@ -13,7 +13,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
+
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<BaseResponse<?>> handleBadRequestException(BadRequestException e) {
         return ApiResponseUtil.failure(FailureMessage.BAD_REQUEST);
@@ -39,6 +39,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BaseResponse<?>> handleHttpRequestMethodNotSupportedException(
             HttpRequestMethodNotSupportedException e) {
         return ApiResponseUtil.failure(FailureMessage.METHOD_NOT_ALLOWED);
+    }
+
+    @ExceptionHandler(OdcServerErrorException.class)
+    public ResponseEntity<BaseResponse<?>> handleOdcServerErrorException(
+            OdcServerErrorException e) {
+        return ApiResponseUtil.failure(FailureMessage.ODC_SERVER_ERROR);
     }
 
 }

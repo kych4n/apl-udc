@@ -5,6 +5,7 @@ import apl.udc.auth.OtpHandler;
 import apl.udc.dto.request.SignInRequest;
 import apl.udc.dto.response.SignInResponse;
 import apl.udc.global.common.OdcProperties;
+import apl.udc.global.exception.OdcServerErrorException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -51,8 +52,7 @@ public class AuthFacade {
                         jsonObject.getAsJsonObject("data").get("refreshToken").getAsString()
                 );
             } else {
-                log.info("Request Failed.");
-                return null;
+                throw OdcServerErrorException.wrong();
             }
         }
     }
