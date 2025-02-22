@@ -4,6 +4,7 @@ import apl.udc.api.dto.request.InfoForFilteringRequest;
 import apl.udc.api.dto.response.AttributeResponse;
 import apl.udc.auth.AuthProperties;
 import apl.udc.global.common.OdcProperties;
+import apl.udc.global.exception.OdcServerErrorException;
 import apl.udc.global.util.Decryptor;
 import apl.udc.global.util.FileDownloader;
 import apl.udc.global.util.SavePath;
@@ -53,8 +54,7 @@ public class MainFacade {
                                 .stream().map(JsonElement::getAsString).toList()
                 );
             } else {
-                log.info("Request Failed.");
-                return null;
+                throw OdcServerErrorException.wrong();
             }
         }
     }
@@ -76,8 +76,7 @@ public class MainFacade {
                 JsonObject jsonObject = JsonParser.parseString(response.body().string()).getAsJsonObject();
                 return jsonObject.getAsJsonObject("data").get("signedUrl").getAsString();
             } else {
-                log.info("Request Failed.");
-                return null;
+                throw OdcServerErrorException.wrong();
             }
         }
     }
@@ -103,7 +102,7 @@ public class MainFacade {
 
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                log.info("Request Failed.");
+                throw OdcServerErrorException.wrong();
             }
         }
     }
