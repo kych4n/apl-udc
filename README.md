@@ -70,7 +70,7 @@ ODC는 전달받은 Url에서 Rule 파일과 Frame 파일을 다운로드한다.
 
 ### 암호화된 데이터 업로드
 
-![암호화된 데이터 업로드](fdee4b27-6018-40f1-9ba0-293c2bbeafa7.png)
+![fdee4b27-6018-40f1-9ba0-293c2bbeafa7](https://github.com/user-attachments/assets/9f76b0be-7312-4548-b8b6-b2ba99b2f927)
 
 &nbsp;
 
